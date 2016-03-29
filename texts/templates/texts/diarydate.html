@@ -1,16 +1,30 @@
-{% load staticfiles %}
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-<link href='//fonts.googleapis.com/css?family=Vollkorn&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="{% static 'css/texts.css' %}">
-<html>
-<header>Tester</header>
-<main>
-  <head>
+{% extends 'texts/base.html' %}
+{% block content %}
+
+<head>
     <title>Diary Entry</title>
-  </head>
+</head>
+<h2> Yuan's Weekly Diary Entry </h2>
   <body>
+    <br>
+    <br>
   <p>{{html}}</p>
   </body>
-<main>
-</html>
+  <br>
+  <button type="button" class="btn btn-custom btn-md">
+    <span class="glyphicon glyphicon-list " aria-hidden="true"></span> Calculate!
+  </button>
+
+  <form>
+    Meritorious Act:<br>
+    <input type ="text" name="meritorious_act"><br>
+    <input type ="text" name="meritorious act"><br>
+    <input type ="text" name="meritorious_act"><br>
+    <input type ="text" name="meritorious_act"><br>
+    <input type ="text" name="meritorious_act"><br>
+    <input type ="text" name="meritorious_act"><br>
+    <input type ="submit" value="Calculate"><br>
+    <action
+  </form>
+
+  {% endblock %}
