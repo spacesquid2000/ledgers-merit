@@ -3,7 +3,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.template import loader
-from .forms import DeedForm
 import random
 from random import choice
 
@@ -24,35 +23,35 @@ def diarydate(request):
     s1_emotions = {'a nightmare': 'awful', 'full of woe': 'forlorn', 'wonderful': 'content', 'lovely': 'restored'} # this generates the variables for the first sentence
     s1_emotions_var1 = random.choice(list(s1_emotions.keys()))
 
-    ledger_mer = {'saved a person\'s life': '100',
-            'ensured the fidelity of a woman': '100',
-            'prevented someone from drowning a child or aborting a baby': '100',
-            'maintained the family lineage': '50',
-            'adopted an orphan': '50',
-            'buried a corpse no one cared for': '50',
-            'prevented a person from abandoning a village': '50',
-            'remonstrated with an evildoer to change his way': '30',
-            'rectified an justice': '30',
-            'recommended a virtuous person for office': '10',
-            'eliminated something harmful to the people': '10',
-            'remonstrated with a litigant to withdraw a lawsuit': '5',
-            'saved the life of a domestic animal': '5',
-            'praised someone\'s good deed': '1',
-            'did not join in someone\'s bad deed': '1',
-            'remonstrated with someone from doing evil': '1',
-            'cured someone\'s illness': '1',
-            'provided a meal to a hungry person': '1',
-            'buried a dead domestic animal': '1',
-            'saved the life of an insect or watery creature': '1',
-            'spent 100 coins on constructing a road': '1',
-            'spent 100 coins on constructing a bridge': '1',
-            'spent 100 coins on digging a waterway to benefit the people': '1',
-            'spent 100 coins on repairing a sacred image': '1',
-            'spent 100 coins giving assistance to the poor': '1',
-            'donated tea worth 100 coins': '1',
-            'donated medicine worth 100 coins': '1',
-            'donated clothes worth 100 coins': '1',
-            'donated coffins worth 100 coins': '1'}
+    ledger_mer = {'saved a person\'s life': 100,
+            'ensured the fidelity of a woman': 100,
+            'prevented someone from drowning a child or aborting a baby': 100,
+            'maintained the family lineage': 50,
+            'adopted an orphan': 50,
+            'buried a corpse no one cared for': 50,
+            'prevented a person from abandoning a village': 50,
+            'remonstrated with an evildoer to change his way': 30,
+            'rectified an justice': 30,
+            'recommended a virtuous person for office': 10,
+            'eliminated something harmful to the people': 10,
+            'remonstrated with a litigant to withdraw a lawsuit': 5,
+            'saved the life of a domestic animal': 5,
+            'praised someone\'s good deed': 1,
+            'did not join in someone\'s bad deed': 1,
+            'remonstrated with someone from doing evil': 1,
+            'cured someone\'s illness': 1,
+            'provided a meal to a hungry person': 1,
+            'buried a dead domestic animal': 1,
+            'saved the life of an insect or watery creature': 1,
+            'spent 100 coins on constructing a road': 1,
+            'spent 100 coins on constructing a bridge': 1,
+            'spent 100 coins on digging a waterway to benefit the people': 1,
+            'spent 100 coins on repairing a sacred image': 1,
+            'spent 100 coins giving assistance to the poor': 1,
+            'donated tea worth 100 coins': 1,
+            'donated medicine worth 100 coins': 1,
+            'donated clothes worth 100 coins': 1,
+            'donated coffins worth 100 coins': 1}
 
     s2p1 = ('As I was strolling through my fields, I ', 'After meeting an old friend, I', 'After having argued with my concubine, I','As I was walking in the town square, I ', 'During my visit to the teahouse, I ', 'While meandering through the countryside, I')
     s2_var1 = random.choice(s2p1) #sets the initial setting
@@ -72,9 +71,46 @@ def diarydate(request):
     html = "This is the week of %s %s, %s. My days were %s and I feel %s. %s %s. In addition I %s." % (month1, day1, year1, s1_emotions_var1, s1_emotions[s1_emotions_var1], s2_var1, mer_var1, random.choice(list(ledger_mer.keys())))
     return render_to_response('texts/diarydate.html', {'html': html})
 
-def FormCalculate(): #this function should add them all up, doesn't work
-    response = input('Enter the deed: ')
-    d1 = ledger_mer[response]
-    if d1 in ledger_mer.keys():
-        return int(d1)
-    print("This action's merit is  " + x)
+def MeritCalculator(request): #this funciton should take in all deeds, split them, calculate the value of each, and add them, returning the total merit to the user
+    list1 = input('Enter a list of deeds, separated by commas: ').split(', ') #generates a list with items separated by a comma
+    updated_list = [] #defines the empty list for values to be appended to
+    for x in list1:
+        if x in ledger_mer.keys():
+            updated_list.append(ledger_mer[x])
+            final_total = sum(updated_list)
+    print(final_total)
+    return(final_total)
+
+def SingleMeritCalculator(request): #Checks the merit of a single deed
+    ledger_mer = {'saved a person\'s life': 100,
+            'ensured the fidelity of a woman': 100,
+            'prevented someone from drowning a child or aborting a baby': 100,
+            'maintained the family lineage': 50,
+            'adopted an orphan': 50,
+            'buried a corpse no one cared for': 50,
+            'prevented a person from abandoning a village': 50,
+            'remonstrated with an evildoer to change his way': 30,
+            'rectified an justice': 30,
+            'recommended a virtuous person for office': 10,
+            'eliminated something harmful to the people': 10,
+            'remonstrated with a litigant to withdraw a lawsuit': 5,
+            'saved the life of a domestic animal': 5,
+            'praised someone\'s good deed': 1,
+            'did not join in someone\'s bad deed': 1,
+            'remonstrated with someone from doing evil': 1,
+            'cured someone\'s illness': 1,
+            'provided a meal to a hungry person': 1,
+            'buried a dead domestic animal': 1,
+            'saved the life of an insect or watery creature': 1,
+            'spent 100 coins on constructing a road': 1,
+            'spent 100 coins on constructing a bridge': 1,
+            'spent 100 coins on digging a waterway to benefit the people': 1,
+            'spent 100 coins on repairing a sacred image': 1,
+            'spent 100 coins giving assistance to the poor': 1,
+            'donated tea worth 100 coins': 1,
+            'donated medicine worth 100 coins': 1,
+            'donated clothes worth 100 coins': 1,
+            'donated coffins worth 100 coins': 1}
+    response = input('Enter a deed: ')
+    x = ledger_mer[response]
+    return render_to_response('texts/SingleMeritCalculator.html', {'x': x})
